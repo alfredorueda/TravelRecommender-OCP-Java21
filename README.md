@@ -117,10 +117,6 @@ public static <T extends Recommendation> void addRecommendation(
 }
 ```
 
-## 👨‍🏫 Educational Purpose
-
-This project is designed to assist instructors in teaching high-level Java features with meaningful, real-world scenarios—like those used at eDreams. Each class and method contains detailed Javadoc comments explaining the Java 21 concepts being demonstrated.
-
 ## 📝 License
 
 MIT
