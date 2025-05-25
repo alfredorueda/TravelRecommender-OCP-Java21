@@ -1,7 +1,7 @@
 package com.edreams.travelrecommender.model;
 
 /**
- * A sealed interface representing a travel recommendation in the eDreams-style travel system.
+ * A sealed interface representing a travel recommendation.
  * 
  * <h2>Purpose in Architecture</h2>
  * <p>This interface forms the foundation of the type hierarchy for all recommendations
