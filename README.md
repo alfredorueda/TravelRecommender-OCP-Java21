@@ -7,7 +7,7 @@ A hands-on Maven project designed for engineers preparing for the **OCP Java 21 
 - Uses modern Java 21 features:
   - Sealed types and generic records
   - Pattern matching for switch/instanceof
-  - Type-safe wildcards (`?`, `? extends`, `? super`)
+- Type-safe wildcards (`?`, `? extends`, `? super`)
 - Code comments explain certification-relevant concepts
 - Perfect for advanced learners and Java instructors
 
