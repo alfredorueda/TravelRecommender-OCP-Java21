@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  *   <li><strong>Pattern Matching</strong>: Both for instanceof and switch expressions</li>
  *   <li><strong>Functional Programming</strong>: With predicates and method references</li>
  *   <li><strong>Type Erasure</strong>: Demonstrating the limitations of Java's generic type system</li>
+ *   <li><strong>List.getFirst()</strong>: Using the new Java 21 List API method to access the first element</li>
  * </ul>
  * 
  * <h2>PECS Principle</h2>
@@ -49,7 +50,7 @@ import java.util.stream.Collectors;
  *     RecommendationService.<Recommendation>combineRecommendations(flights, hotels);
  * 
  * // Describe a recommendation using pattern matching
- * String description = RecommendationService.describeRecommendation(flights.get(0));
+ * String description = RecommendationService.describeRecommendation(flights.getFirst());
  * }</pre>
  */
 public class RecommendationService {
@@ -398,7 +399,7 @@ public class RecommendationService {
             // if (obj instanceof List<FlightRecommendation>)
             
             // We can only check individual elements
-            if (!list.isEmpty() && list.get(0) instanceof Recommendation) {
+            if (!list.isEmpty() && list.getFirst() instanceof Recommendation) {
                 return true;
             }
         }

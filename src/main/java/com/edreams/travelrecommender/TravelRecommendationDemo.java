@@ -27,6 +27,7 @@ import java.util.Map;
  *   <li><strong>Generics with Wildcards</strong>: Illustrating the PECS principle</li>
  *   <li><strong>Type Erasure</strong>: Showing runtime limitations of Java's generic system</li>
  *   <li><strong>Functional Programming</strong>: Using lambda expressions and method references</li>
+ *   <li><strong>List.getFirst()</strong>: Using the new Java 21 collection API method</li>
  * </ul>
  * 
  * <h2>Teaching Structure</h2>
@@ -63,6 +64,7 @@ public class TravelRecommendationDemo {
      *   <li>Type inference with {@code var} for local variables</li>
      *   <li>Explicit type parameter specification in {@code RecommendationService.<Recommendation>combineRecommendations()}</li>
      *   <li>The use of lambda expressions with forEach</li>
+     *   <li>The new List.getFirst() method instead of get(0)</li>
      * </ul>
      * 
      * @param args command line arguments (not used)
@@ -103,7 +105,7 @@ public class TravelRecommendationDemo {
         
         // Demonstrate RecommendationBox with pattern matching
         System.out.println("\n📦 Recommendation Box Demo:");
-        demonstrateRecommendationBox(flights.get(0), hotels.get(0), activities.get(0), packages.get(0));
+        demonstrateRecommendationBox(flights.getFirst(), hotels.getFirst(), activities.getFirst(), packages.getFirst());
         
         // Demonstrate pattern matching with instanceof and switch
         System.out.println("\n🔍 Pattern Matching Demo:");
@@ -352,9 +354,9 @@ public class TravelRecommendationDemo {
             "Romantic Paris Getaway",
             "All-inclusive romantic weekend in Paris with luxury accommodations",
             0.88,
-            flights.get(0),
-            hotels.get(0),
-            List.of(activities.get(0), activities.get(3)),
+            flights.getFirst(),
+            hotels.getFirst(),
+            List.of(activities.getFirst(), activities.get(3)),
             0.15,
             950.00
         );
@@ -485,25 +487,25 @@ public class TravelRecommendationDemo {
         
         // Producer Extends: Using "? extends" when reading from collections
         List<? extends Recommendation> recommendations = flights; // We can assign flights to this list
-        Recommendation rec = recommendations.get(0); // We can read Recommendations from it
+        Recommendation rec = recommendations.getFirst(); // We can read Recommendations from it
         System.out.println(" - Producer (extends): Reading " + rec.getTitle());
         
         // But we can't add to this list because we don't know the exact type
-        // recommendations.add(hotels.get(0)); // This would not compile
+        // recommendations.add(hotels.getFirst()); // This would not compile
         
         // Consumer Super: Using "? super" when adding to collections
         List<? super FlightRecommendation> flightList = new ArrayList<Recommendation>();
-        flightList.add(flights.get(0)); // We can add FlightRecommendations to this list
+        flightList.add(flights.getFirst()); // We can add FlightRecommendations to this list
         System.out.println(" - Consumer (super): Added flight to a list of super type");
         
         // But we can't read specific types from it
-        // FlightRecommendation flight = flightList.get(0); // This would not compile
+        // FlightRecommendation flight = flightList.getFirst(); // This would not compile
         
         // Demonstrate addRecommendation method with PECS
         List<Recommendation> allRecs = new ArrayList<>();
-        RecommendationService.addRecommendation(allRecs, flights.get(0));
-        RecommendationService.addRecommendation(allRecs, hotels.get(0));
-        RecommendationService.addRecommendation(allRecs, activities.get(0));
+        RecommendationService.addRecommendation(allRecs, flights.getFirst());
+        RecommendationService.addRecommendation(allRecs, hotels.getFirst());
+        RecommendationService.addRecommendation(allRecs, activities.getFirst());
         
         System.out.println(" - Added different recommendation types using PECS: " + allRecs.size() + " items");
     }

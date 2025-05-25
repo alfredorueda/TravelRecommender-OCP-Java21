@@ -82,7 +82,7 @@ class RecommendationServiceTest {
             List<FlightRecommendation> flights = List.of(flight);
             var highConfidenceFlights = RecommendationService.filterByConfidence(flights, threshold);
             assertEquals(1, highConfidenceFlights.size());
-            assertEquals(flight, highConfidenceFlights.get(0));
+            assertEquals(flight, highConfidenceFlights.getFirst());
         }
         
         @Test
@@ -118,7 +118,7 @@ class RecommendationServiceTest {
             List<FlightRecommendation> flights = new ArrayList<>();
             RecommendationService.addRecommendation(flights, flight);
             assertEquals(1, flights.size());
-            assertEquals(flight, flights.get(0));
+            assertEquals(flight, flights.getFirst());
         }
     }
     
@@ -160,10 +160,10 @@ class RecommendationServiceTest {
             assertEquals(1, categorized.get("Activities").size());
             assertEquals(1, categorized.get("Packages").size());
             
-            assertEquals(flight, categorized.get("Flights").get(0));
-            assertEquals(hotel, categorized.get("Hotels").get(0));
-            assertEquals(activity, categorized.get("Activities").get(0));
-            assertEquals(packageRec, categorized.get("Packages").get(0));
+            assertEquals(flight, categorized.get("Flights").getFirst());
+            assertEquals(hotel, categorized.get("Hotels").getFirst());
+            assertEquals(activity, categorized.get("Activities").getFirst());
+            assertEquals(packageRec, categorized.get("Packages").getFirst());
         }
     }
     
