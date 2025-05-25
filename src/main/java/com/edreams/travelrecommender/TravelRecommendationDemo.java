@@ -1,7 +1,6 @@
 package com.edreams.travelrecommender;
 
 import com.edreams.travelrecommender.model.*;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,17 +9,64 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Main demonstration class for the Travel Recommendation System.
+ * Main demonstration class showcasing the Travel Recommendation System's capabilities.
  * 
- * This class creates sample recommendations and demonstrates the use of:
- * - Generic records
- * - Generic methods with bounded wildcards
- * - Pattern matching for switch and instanceof
- * - PECS principle
- * - Type erasure considerations
+ * <h2>Purpose in Architecture</h2>
+ * <p>This class serves as a practical demonstration of how all components in the
+ * travel recommendation system work together. It creates sample data, exercises
+ * the core functionality, and illustrates advanced Java 21 features through concrete
+ * examples that instructors can use to explain concepts to students preparing for
+ * the OCP Java 21 certification.</p>
+ * 
+ * <h2>OCP Java 21 Features Demonstrated</h2>
+ * <p>This class provides working examples of:</p>
+ * <ul>
+ *   <li><strong>Records</strong>: Creating and working with immutable data carriers</li>
+ *   <li><strong>Sealed Types</strong>: Working with a closed type hierarchy</li>
+ *   <li><strong>Pattern Matching</strong>: Both for instanceof and switch expressions</li>
+ *   <li><strong>Generics with Wildcards</strong>: Illustrating the PECS principle</li>
+ *   <li><strong>Type Erasure</strong>: Showing runtime limitations of Java's generic system</li>
+ *   <li><strong>Functional Programming</strong>: Using lambda expressions and method references</li>
+ * </ul>
+ * 
+ * <h2>Teaching Structure</h2>
+ * <p>The demo is organized in sections that instructors can use to demonstrate specific concepts:</p>
+ * <ol>
+ *   <li>Creating sample data with records</li>
+ *   <li>Working with generic collections of sealed types</li>
+ *   <li>Using RecommendationBox to encapsulate recommendations</li>
+ *   <li>Demonstrating the PECS principle with bounded wildcards</li>
+ *   <li>Exploring pattern matching for type checking and data extraction</li>
+ *   <li>Showing type erasure limitations in Java's generic system</li>
+ * </ol>
+ * 
+ * <h2>Instructor Notes</h2>
+ * <p>When teaching with this code:</p>
+ * <ul>
+ *   <li>Start by explaining the domain model with sealed hierarchy</li>
+ *   <li>Show how records simplify data modeling for recommendations</li>
+ *   <li>Highlight how pattern matching makes polymorphic code cleaner</li>
+ *   <li>Explain wildcard usage with the "Producer Extends, Consumer Super" principle</li>
+ *   <li>Demonstrate type erasure to help students understand generic type limitations</li>
+ * </ul>
  */
 public class TravelRecommendationDemo {
-
+    /**
+     * Main entry point for the demonstration.
+     * 
+     * <p>This method orchestrates the entire demonstration, creating sample data
+     * and exercising the key features of the system. Each section is clearly
+     * delineated with console output for educational clarity.</p>
+     * 
+     * <p><strong>OCP Java 21 Note:</strong> Pay special attention to:</p>
+     * <ul>
+     *   <li>Type inference with {@code var} for local variables</li>
+     *   <li>Explicit type parameter specification in {@code RecommendationService.<Recommendation>combineRecommendations()}</li>
+     *   <li>The use of lambda expressions with forEach</li>
+     * </ul>
+     * 
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         System.out.println("Travel Recommendation System - OCP Java 21 Demo");
         System.out.println("=================================================");
@@ -84,7 +130,20 @@ public class TravelRecommendationDemo {
     }
     
     /**
-     * Creates sample flight recommendations.
+     * Creates a collection of sample flight recommendations for demonstration purposes.
+     * 
+     * <p>This method demonstrates how to create multiple instances of the {@link FlightRecommendation}
+     * record with various attributes representing different types of flights.</p>
+     * 
+     * <p><strong>OCP Java 21 Note:</strong> Note the use of:</p>
+     * <ul>
+     *   <li>Record instantiation with the canonical constructor</li>
+     *   <li>The immutability of records (all fields are final)</li>
+     *   <li>The {@code List.of()} factory method for creating immutable lists</li>
+     *   <li>Method chaining with LocalDateTime for date manipulation</li>
+     * </ul>
+     * 
+     * @return an immutable list of sample flight recommendations
      */
     private static List<FlightRecommendation> createSampleFlights() {
         var flight1 = new FlightRecommendation(
@@ -136,7 +195,15 @@ public class TravelRecommendationDemo {
     }
     
     /**
-     * Creates sample hotel recommendations.
+     * Creates a collection of sample hotel recommendations for demonstration purposes.
+     * 
+     * <p>This method demonstrates how to create multiple instances of the {@link HotelRecommendation}
+     * record with different star ratings, amenities, and price points.</p>
+     * 
+     * <p><strong>OCP Java 21 Note:</strong> Pay attention to how the compact constructor in 
+     * {@link HotelRecommendation} validates that star ratings are between 1 and 5.</p>
+     * 
+     * @return an immutable list of sample hotel recommendations
      */
     private static List<HotelRecommendation> createSampleHotels() {
         var hotel1 = new HotelRecommendation(
@@ -185,7 +252,20 @@ public class TravelRecommendationDemo {
     }
     
     /**
-     * Creates sample activity recommendations.
+     * Creates a collection of sample activity recommendations for demonstration purposes.
+     * 
+     * <p>This method demonstrates how to create multiple instances of the {@link ActivityRecommendation}
+     * record representing various tourist activities with different durations, categories, and
+     * characteristics.</p>
+     * 
+     * <p><strong>OCP Java 21 Note:</strong> Note the use of:</p>
+     * <ul>
+     *   <li>The Duration class from the java.time package for representing time spans</li>
+     *   <li>Different combinations of categories to demonstrate the getActivityType() method</li>
+     *   <li>Boolean flags (isIndoor) that influence classification</li>
+     * </ul>
+     * 
+     * @return an immutable list of sample activity recommendations
      */
     private static List<ActivityRecommendation> createSampleActivities() {
         var activity1 = new ActivityRecommendation(
@@ -248,7 +328,19 @@ public class TravelRecommendationDemo {
     }
     
     /**
-     * Creates sample package recommendations.
+     * Creates a collection of sample package recommendations by combining flights, hotels, and activities.
+     * 
+     * <p>This method demonstrates the composite nature of the {@link PackageRecommendation} record,
+     * which references other recommendation types to create bundled travel packages.</p>
+     * 
+     * <p><strong>OCP Java 21 Note:</strong> Note how PackageRecommendation implements the Composite
+     * design pattern with records, creating a tree-like structure of recommendation objects.
+     * This demonstrates advanced object composition techniques.</p>
+     * 
+     * @param flights list of flight recommendations to include in packages
+     * @param hotels list of hotel recommendations to include in packages
+     * @param activities list of activity recommendations to include in packages
+     * @return an immutable list of sample package recommendations
      */
     private static List<PackageRecommendation> createSamplePackages(
             List<FlightRecommendation> flights,
@@ -283,7 +375,42 @@ public class TravelRecommendationDemo {
     }
     
     /**
-     * Demonstrates the use of RecommendationBox with pattern matching.
+     * Demonstrates the use of {@link RecommendationBox} class with different recommendation types
+     * and shows pattern matching for type detection and data extraction.
+     * 
+     * <p>This method showcases how a generic container like RecommendationBox can
+     * provide type-safe operations on different recommendation subtypes while
+     * maintaining a consistent API.</p>
+     * 
+     * <p><strong>OCP Java 21 Features:</strong></p>
+     * <ul>
+     *   <li><strong>Pattern Matching with instanceof</strong>: Using the pattern variable binding
+     *       syntax to simultaneously check types and extract values</li>
+     *   <li><strong>Generic Methods</strong>: Using the map() method to transform recommendations</li>
+     *   <li><strong>Method References</strong>: Using Recommendation::getTitle syntax</li>
+     *   <li><strong>Static Factory Methods</strong>: Using RecommendationBox.of() as an alternative
+     *       constructor</li>
+     * </ul>
+     * 
+     * <p>Compare the pattern matching approach:</p>
+     * <pre>{@code
+     * if (box.get() instanceof FlightRecommendation f) {
+     *     // Use f directly
+     * }
+     * }</pre>
+     * 
+     * <p>With the pre-Java 16 approach:</p>
+     * <pre>{@code
+     * if (box.get() instanceof FlightRecommendation) {
+     *     FlightRecommendation f = (FlightRecommendation) box.get();
+     *     // Use f after casting
+     * }
+     * }</pre>
+     * 
+     * @param flight a sample flight recommendation
+     * @param hotel a sample hotel recommendation
+     * @param activity a sample activity recommendation
+     * @param packageRec a sample package recommendation
      */
     private static void demonstrateRecommendationBox(
             FlightRecommendation flight,
@@ -322,7 +449,34 @@ public class TravelRecommendationDemo {
     }
     
     /**
-     * Demonstrates the PECS principle (Producer Extends, Consumer Super).
+     * Demonstrates the PECS principle (Producer Extends, Consumer Super) with bounded wildcards.
+     * 
+     * <p>This method provides concrete examples of how to use bounded wildcards
+     * properly based on whether a collection is used as a producer of values or
+     * a consumer of values.</p>
+     * 
+     * <p><strong>OCP Java 21 Feature: Bounded Wildcards</strong></p>
+     * <p>This method demonstrates two core concepts:</p>
+     * <ul>
+     *   <li><strong>Producer Extends</strong>: When you only read from a collection,
+     *       use {@code ? extends T} to allow reading from any subtype of T</li>
+     *   <li><strong>Consumer Super</strong>: When you only write to a collection,
+     *       use {@code ? super T} to allow writing to any supertype of T</li>
+     * </ul>
+     * 
+     * <p>The method also shows which operations are allowed and which are restricted
+     * when using each type of bounded wildcard. This is a crucial concept for the OCP
+     * Java 21 exam.</p>
+     * 
+     * <p><strong>OCP Exam Note:</strong> Remember these restrictions:</p>
+     * <ul>
+     *   <li>With {@code List<? extends T>}, you can read T objects but cannot add any objects</li>
+     *   <li>With {@code List<? super T>}, you can add T objects but can only read Object instances</li>
+     * </ul>
+     * 
+     * @param flights a list of flight recommendations (specific subtype)
+     * @param hotels a list of hotel recommendations (specific subtype)
+     * @param activities a list of activity recommendations (specific subtype)
      */
     private static void demonstratePecs(
             List<FlightRecommendation> flights,
@@ -355,7 +509,34 @@ public class TravelRecommendationDemo {
     }
     
     /**
-     * Demonstrates type erasure limitations in Java generics.
+     * Demonstrates the limitations of Java's generic type system due to type erasure.
+     * 
+     * <p>This method illustrates how Java's type erasure affects runtime type checking
+     * with generics, showing what kind of type information is preserved and what
+     * is lost at runtime.</p>
+     * 
+     * <p><strong>OCP Java 21 Feature: Type Erasure</strong></p>
+     * <p>This demonstrates one of the most important limitations to understand for the OCP exam:</p>
+     * <ul>
+     *   <li>At compile time, generic type parameters ensure type safety</li>
+     *   <li>At runtime, all generic type information is erased</li>
+     *   <li>A {@code List<String>} and {@code List<Integer>} are indistinguishable at runtime</li>
+     *   <li>You can check if an object is a List, but not what type of elements it contains</li>
+     * </ul>
+     * 
+     * <p><strong>OCP Exam Notes:</strong></p>
+     * <ul>
+     *   <li>Valid: {@code obj instanceof List<?>}</li>
+     *   <li>Invalid: {@code obj instanceof List<String>} (won't compile)</li>
+     *   <li>Workaround: Check the list elements individually</li>
+     * </ul>
+     * 
+     * <p>This limitation of Java's generic type system is a direct consequence of
+     * how generics were implemented to maintain backward compatibility.</p>
+     * 
+     * @param flights a list of flight recommendations
+     * @param hotels a list of hotel recommendations
+     * @param recommendations a mixed list of various recommendation types
      */
     private static void demonstrateTypeErasure(
             List<FlightRecommendation> flights,
