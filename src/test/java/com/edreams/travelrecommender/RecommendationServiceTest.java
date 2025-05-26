@@ -119,6 +119,21 @@ class RecommendationServiceTest {
             RecommendationService.addRecommendation(flights, flight);
             assertEquals(1, flights.size());
             assertEquals(flight, flights.getFirst());
+            
+            // Test with Object list - this would fail with List<T> but works with List<? super T>
+            // This demonstrates the flexibility that only the wildcard syntax provides
+            List<Object> objectList = new ArrayList<>();
+            RecommendationService.addRecommendation(objectList, flight);
+            assertEquals(1, objectList.size());
+            assertEquals(flight, objectList.getFirst());
+            
+            // Test with multiple inheritance levels to ensure wildcard works with any supertype
+            List<Object> mixedList = new ArrayList<>();
+            RecommendationService.addRecommendation(mixedList, flight);
+            RecommendationService.addRecommendation(mixedList, hotel);
+            assertEquals(2, mixedList.size());
+            assertTrue(mixedList.contains(flight));
+            assertTrue(mixedList.contains(hotel));
         }
     }
     
