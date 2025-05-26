@@ -285,9 +285,8 @@ public class RecommendationService {
                     pkg.totalPrice(),
                     pkg.getSavingsAmount());
                 
-            // Since Recommendation is sealed, this default case will never be reached
-            // but it's required for exhaustive pattern matching
-            default -> "Unknown recommendation type";
+            // Since Recommendation is sealed, default is not needed
+
         };
     }
     
