@@ -90,9 +90,8 @@ public class RecommendationService {
     public static <T extends Recommendation> List<T> filterByPredicate(
             List<? extends T> recommendations, 
             Predicate<? super T> predicate) {
-        return recommendations.stream()
-                .filter(predicate)
-                .collect(Collectors.toList());
+        // TODO: Implement the filtering logic using streams
+        return null;
     }
     
     /**
@@ -129,8 +128,8 @@ public class RecommendationService {
     public static <T extends Recommendation> List<T> filterByConfidence(
             List<? extends T> recommendations, 
             double minimumConfidence) {
-        return filterByPredicate(recommendations, 
-                rec -> rec.getConfidenceScore() >= minimumConfidence);
+        // TODO: Implement the filtering logic using the filterByPredicate method
+        return null;
     }
     
     /**
@@ -174,11 +173,9 @@ public class RecommendationService {
      */
     @SafeVarargs
     public static <T extends Recommendation> List<T> combineRecommendations(List<? extends T>... lists) {
-        List<T> result = new ArrayList<>();
-        for (List<? extends T> list : lists) {
-            result.addAll(list);
-        }
-        return result;
+
+        // TODO: Implement the logic to combine all lists into a single list
+        return null;
     }
     
     /**
@@ -221,7 +218,7 @@ public class RecommendationService {
     public static <T extends Recommendation> void addRecommendation(
             List<? super T> recommendations, 
             T recommendation) {
-        recommendations.add(recommendation);
+       // TODO: Implement the logic to add the recommendation to the list
     }
     
     /**
@@ -254,41 +251,8 @@ public class RecommendationService {
      */
     public static String describeRecommendation(Recommendation recommendation) {
         // Pattern matching for switch with record patterns
-        return switch (recommendation) {
-            case FlightRecommendation flight -> 
-                String.format("Flight from %s to %s on %s, %s, Price: $%.2f", 
-                    flight.departureAirport(), 
-                    flight.arrivalAirport(), 
-                    flight.airline(),
-                    flight.isDirect() ? "Direct" : "Connecting",
-                    flight.price());
-                
-            case HotelRecommendation hotel -> 
-                String.format("%s-star hotel '%s' in %s, Price: $%.2f per night", 
-                    hotel.starRating(), 
-                    hotel.hotelName(), 
-                    hotel.location(),
-                    hotel.pricePerNight());
-                
-            case ActivityRecommendation activity -> 
-                String.format("Activity: %s in %s, Duration: %s, Price: $%.2f", 
-                    activity.activityName(), 
-                    activity.location(),
-                    activity.getFormattedDuration(),
-                    activity.price());
-                
-            case PackageRecommendation pkg -> 
-                String.format("Package: %s - Including flight, %d-star hotel, and %d activities, Total price: $%.2f (Save: $%.2f)", 
-                    pkg.title(),
-                    pkg.hotel().starRating(),
-                    pkg.activities().size(),
-                    pkg.totalPrice(),
-                    pkg.getSavingsAmount());
-                
-            // Since Recommendation is sealed, this default case will never be reached
-            // but it's required for exhaustive pattern matching
-            default -> "Unknown recommendation type";
-        };
+        // TODO: Implement the switch expression to handle different recommendation types
+        return null;
     }
     
     /**
@@ -331,26 +295,10 @@ public class RecommendationService {
     public static Map<String, List<Recommendation>> categorizeRecommendations(
             List<? extends Recommendation> recommendations) {
         
-        Map<String, List<Recommendation>> categorized = new HashMap<>();
-        categorized.put("Flights", new ArrayList<>());
-        categorized.put("Hotels", new ArrayList<>());
-        categorized.put("Activities", new ArrayList<>());
-        categorized.put("Packages", new ArrayList<>());
+
+        // TODO: Implement the categorization logic using Java 21 pattern matching
         
-        for (Recommendation rec : recommendations) {
-            // Pattern matching with instanceof
-            if (rec instanceof FlightRecommendation flight) {
-                categorized.get("Flights").add(flight);
-            } else if (rec instanceof HotelRecommendation hotel) {
-                categorized.get("Hotels").add(hotel);
-            } else if (rec instanceof ActivityRecommendation activity) {
-                categorized.get("Activities").add(activity);
-            } else if (rec instanceof PackageRecommendation pkg) {
-                categorized.get("Packages").add(pkg);
-            }
-        }
-        
-        return categorized;
+        return null;
     }
     
     /**
