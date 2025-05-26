@@ -7,7 +7,7 @@ A hands-on Maven project designed for engineers preparing for the **OCP Java 21 
 - Uses modern Java 21 features:
   - Sealed types and generic records
   - Pattern matching for switch/instanceof
-  - Type-safe wildcards (`?`, `? extends`, `? super`)
+- Type-safe wildcards (`?`, `? extends`, `? super`)
 - Code comments explain certification-relevant concepts
 - Perfect for advanced learners and Java instructors
 
@@ -116,10 +116,6 @@ public static <T extends Recommendation> void addRecommendation(
     // ...
 }
 ```
-
-## 👨‍🏫 Educational Purpose
-
-This project is designed to assist instructors in teaching high-level Java features with meaningful, real-world scenarios—like those used at eDreams. Each class and method contains detailed Javadoc comments explaining the Java 21 concepts being demonstrated.
 
 ## 📝 License
 
